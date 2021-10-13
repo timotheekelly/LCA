@@ -10,6 +10,7 @@ public class LowestCommonAncestorTest {
     public void testFindLCA() {
 		LowestCommonAncestor tree = new LowestCommonAncestor();
 		
+        // test empty tree
 		assertEquals(-1, tree.findLCA(4,5));
 		
 		tree.root = new Node(1);
@@ -20,22 +21,19 @@ public class LowestCommonAncestorTest {
 		tree.root.right.left = new Node(6);
 		tree.root.right.right = new Node(7);
 
+        // testing basic functionalitie
         assertEquals(2, tree.findLCA(4,5));
+
         assertEquals(1, tree.findLCA(4,6));
+
+        // test left and right not real
         assertEquals(-1, tree.findLCA(13,12));
+
+        // test right not real
         assertEquals(-1, tree.findLCA(2,12));
+
+        // test left not real
         assertEquals(-1, tree.findLCA(12,2));
     }
-
-    @Test
-    public void testFindLCAInternal() {
-
-    }
-
-    @Test
-    public void testFindPath() {
-
-    }
-
 	
 }
