@@ -20,9 +20,10 @@ public class LowestCommonAncestorTest {
 		tree.root.right.left = new Node(6);
 		tree.root.right.right = new Node(7);
 
-         assertEquals(2, tree.findLCA(4,5));
-         assertEquals(1, tree.findLCA(4,6));
-         assertEquals(-1, tree.findLCA(13,12));
+        assertEquals(2, tree.findLCA(4,5));
+        assertEquals(1, tree.findLCA(4,6));
+        assertEquals(-1, tree.findLCA(13,12));
+        assertEquals(3, tree.findLCA(7,3));
     }
 
     @Test
