@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "type": "java",
+            "name": "Launch LowestCommonAncestor",
+            "request": "launch",
+            "mainClass": "JavaLca.LowestCommonAncestor",
+            "projectName": "Software Engineering_836c17cf"
+        },
+        {
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
