@@ -8,7 +8,10 @@ public class LowestCommonAncestorTest {
 
     @Test
     public void testFindLCA() {
-        LowestCommonAncestor tree = new LowestCommonAncestor();
+		LowestCommonAncestor tree = new LowestCommonAncestor();
+		
+		assertEquals(-1, tree.findLCA(4,5));
+		
 		tree.root = new Node(1);
 		tree.root.left = new Node(2);
 		tree.root.right = new Node(3);
@@ -19,6 +22,7 @@ public class LowestCommonAncestorTest {
 
          assertEquals(2, tree.findLCA(4,5));
          assertEquals(1, tree.findLCA(4,6));
+         assertEquals(-1, tree.findLCA(13,12));
     }
 
     @Test

@@ -100,4 +100,3 @@ public class LowestCommonAncestor
 	
 	}
 }
-// This code is contributed by Sreenivasulu Rayanki.
