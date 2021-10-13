@@ -85,6 +85,8 @@ public class LowestCommonAncestor
 	public static void main(String[] args)
 	{
 		LowestCommonAncestor tree = new LowestCommonAncestor();
+
+		
 		tree.root = new Node(1);
 		tree.root.left = new Node(2);
 		tree.root.right = new Node(3);
