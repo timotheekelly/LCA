@@ -23,7 +23,8 @@ public class LowestCommonAncestorTest {
         assertEquals(2, tree.findLCA(4,5));
         assertEquals(1, tree.findLCA(4,6));
         assertEquals(-1, tree.findLCA(13,12));
-        assertEquals(3, tree.findLCA(7,3));
+        assertEquals(-1, tree.findLCA(2,12));
+        assertEquals(-1, tree.findLCA(12,2));
     }
 
     @Test
