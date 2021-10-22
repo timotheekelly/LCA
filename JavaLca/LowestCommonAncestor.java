@@ -5,35 +5,37 @@ import java.util.List;
 class Graph {
 
     private List<Integer> path;
-	private static List<Integer> longestPath;
+	private static List<Integer> allAncestors1;
+	private static List<Integer> allAncestors2;
 
-    public void FindAllPaths (List<List<Integer>> graph, int src, int dst) {
+
+    public void FindAllPaths (List<List<Integer>> graph, List<Integer> allAncestors, int src, int dst) {
 
         // Clear previously stored paths
         path = new ArrayList<Integer>();
         path.clear();
 
-        System.out.print("Source : " + src + " Destination : " + dst);
+        System.out.println("Source : " + src + " Destination : " + dst);
 
         path.add(src);
 
-        DFS (graph, src, dst, path);
+        DFS (graph, src, dst, path, allAncestors);
     }
 
-    public void DFS (List<List<Integer>> graph, int src , int dst, List<Integer> path) {
+    public void DFS (List<List<Integer>> graph, int src , int dst, List<Integer> path, List<Integer> allAncestors) {
 
         if (src == dst) {
-            System.out.print("\nPath : " );
             for (Integer node : path) {
-                 System.out.print(node + " ");
-			}
-			if (path.size() > longestPath.size()) {
-				longestPath = path;
+				if (allAncestors.contains(node) || node == src) {
+				}
+				else  {
+					allAncestors.add(node);
+				}
 			}
         } else {
             for (Integer adjnode : graph.get(src)) {
                 path.add(adjnode);
-                DFS (graph, adjnode, dst, path);
+                DFS (graph, adjnode, dst, path, allAncestors);
                 path.remove(path.size()-1);
             }
         }
@@ -42,8 +44,10 @@ class Graph {
     public static void main (String[] args) {
 
         Graph obj = new Graph();
-		longestPath = new ArrayList<Integer>();
-        longestPath.clear();
+		allAncestors1 = new ArrayList<Integer>();
+        allAncestors1.clear();
+		allAncestors2 = new ArrayList<Integer>();
+        allAncestors2.clear();
         List<Integer> node0, node1, node2, node3, node4, node5, node6, node7, node8;
 
         node0 = new ArrayList<Integer>();
@@ -81,7 +85,17 @@ class Graph {
 		graph1.add(node8);
 
         System.out.println("\n\nAll paths in graph G1");
-        obj.FindAllPaths (graph1, 0, 4);
-		obj.FindAllPaths (graph1, 0, 7);
+        obj.FindAllPaths (graph1, allAncestors1, 0, 4);
+
+		for(int node : allAncestors1) {
+			System.out.print(node + " ");
+		}
+		System.out.println();
+
+		obj.FindAllPaths (graph1, allAncestors2, 0, 7);
+
+		for(int node : allAncestors2) {
+			System.out.print(node + " ");
+		}
     }
 }
