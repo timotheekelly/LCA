@@ -1,104 +1,93 @@
 package JavaLca;
 
-// Java Program for Lowest Common Ancestor in a Binary Tree
-// A O(n) solution to find LCA of two given values n1 and n2
-import java.util.ArrayList;
-import java.util.List;
+// Java program to print DFS
+//mtraversal from a given given
+// graph
+import java.io.*;
+import java.util.*;
 
-// A Binary Tree node
-class Node {
-	int data;
-	Node left, right;
+// This class represents a
+// directed graph using adjacency
+// list representation
+class LowestCommonAncestor {
+	private int V; // No. of vertices
 
-	Node(int value) {
-		data = value;
-		left = right = null;
+	// Array of lists for
+	// Adjacency List Representation
+	private LinkedList<Integer> adj[];
+
+	// Constructor
+	@SuppressWarnings("unchecked") LowestCommonAncestor(int v)
+	{
+		V = v;
+		adj = new LinkedList[v];
+		for (int i = 0; i < v; ++i)
+			adj[i] = new LinkedList();
+	}
+
+	// Function to add an edge into the graph
+	void addEdge(int v, int w)
+	{
+		adj[v].add(w); // Add w to v's list.
+	}
+
+	// A function used by DFS
+	void DFSUtil(int v, boolean visited[])
+	{
+		// Mark the current node as visited and print it
+		visited[v] = true;
+		System.out.print(v + " ");
+
+		// Recur for all the vertices adjacent to this
+		// vertex
+		Iterator<Integer> i = adj[v].listIterator();
+		while (i.hasNext())
+		{
+			int n = i.next();
+			if (!visited[n])
+				DFSUtil(n, visited);
+		}
+	}
+
+	// The function to do DFS traversal.
+	// It uses recursive
+	// DFSUtil()
+	void DFS(int v)
+	{
+		// Mark all the vertices as
+		// not visited(set as
+		// false by default in java)
+		boolean visited[] = new boolean[V];
+
+		// Call the recursive helper
+		// function to print DFS
+		// traversal
+		DFSUtil(v, visited);
+	}
+
+	// Driver Code
+	public static void main(String args[])
+	{
+		LowestCommonAncestor g = new LowestCommonAncestor(8);
+
+		g.addEdge(0, 1);
+		g.addEdge(0, 2);
+		g.addEdge(1, 4);
+		g.addEdge(1, 6);
+		g.addEdge(2, 3);
+		g.addEdge(2, 4);
+		g.addEdge(2, 6);
+		g.addEdge(3, 6);
+		g.addEdge(6, 5);
+		g.addEdge(6, 7);
+		g.addEdge(7, 8);
+
+
+		System.out.println(
+			"Following is Depth First Traversal "
+			+ "(starting from vertex 2)");
+
+		g.DFS(8);
 	}
 }
-
-public class LowestCommonAncestor
-{
-
-	Node root;
-	private List<Integer> path1 = new ArrayList<>();
-	private List<Integer> path2 = new ArrayList<>();
-
-	// Finds the path from root node to given root of the tree.
-	int findLCA(int n1, int n2) {
-		path1.clear();
-		path2.clear();
-		return findLCAInternal(root, n1, n2);
-	}
-
-	private int findLCAInternal(Node root, int n1, int n2) {
-
-		if (!findPath(root, n1, path1) || !findPath(root, n2, path2)) {
-			System.out.println((path1.size() > 0) ? "n1 is present" : "n1 is missing");
-			System.out.println((path2.size() > 0) ? "n2 is present" : "n2 is missing");
-			return -1;
-		}
-
-		int i;
-		for (i = 0; i < path1.size() && i < path2.size(); i++) {
-			
-		// System.out.println(path1.get(i) + " " + path2.get(i));
-			if (!path1.get(i).equals(path2.get(i)))
-				break;
-		}
-
-		return path1.get(i-1);
-	}
-	
-	// Finds the path from root node to given root of the tree, Stores the
-	// path in a vector path[], returns true if path exists otherwise false
-	private boolean findPath(Node root, int n, List<Integer> path)
-	{
-		// base case
-		if (root == null) {
-			return false;
-		}
-		
-		// Store this node . The node will be removed if
-		// not in path from root to n.
-		path.add(root.data);
-
-		if (root.data == n) {
-			return true;
-		}
-
-		if (root.left != null && findPath(root.left, n, path)) {
-			return true;
-		}
-
-		if (root.right != null && findPath(root.right, n, path)) {
-			return true;
-		}
-
-		// If not present in subtree rooted with root, remove root from
-		// path[] and return false
-		path.remove(path.size()-1);
-
-		return false;
-	}
-
-	// Driver code
-	public static void main(String[] args)
-	{
-		LowestCommonAncestor tree = new LowestCommonAncestor();
-
-		
-		tree.root = new Node(1);
-		tree.root.left = new Node(2);
-		tree.root.right = new Node(3);
-		tree.root.left.left = new Node(4);
-		tree.root.left.right = new Node(5);
-		tree.root.right.left = new Node(6);
-		tree.root.right.right = new Node(7);
-
-		System.out.println("LCA(4, 5): " + tree.findLCA(4,5));
-		System.out.println("LCA(4, 6): " + tree.findLCA(4,6));
-		System.out.println("LCA(3, 4): " + tree.findLCA(3,4));
-		System.out.println("LCA(2, 4): " + tree.findLCA(2,4));
-	
-	}
-}
+// This code is contributed by Aakash Hasija
