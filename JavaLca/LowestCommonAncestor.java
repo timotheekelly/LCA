@@ -60,8 +60,6 @@ class Graph {
 		node7 = new ArrayList<Integer>();
 		node8 = new ArrayList<Integer>();
 
-        List<List<Integer>> graph1 = new ArrayList<List<Integer>>();
-
         node0.add(1);
         node0.add(2);
         node1.add(4);
@@ -73,6 +71,8 @@ class Graph {
 		node6.add(5);
 		node6.add(7);
 		node7.add(8);
+
+		List<List<Integer>> graph1 = new ArrayList<List<Integer>>();
 
         graph1.add(node0);
         graph1.add(node1);
