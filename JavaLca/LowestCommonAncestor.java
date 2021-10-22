@@ -53,14 +53,6 @@ class Graph {
 		node8 = new ArrayList<Integer>();
 
         List<List<Integer>> graph1 = new ArrayList<List<Integer>>();
-        // Graph 1
-
-        /*  2 ---> 3
-            ^      ^   
-            |      |        
-            0 ---> 1 */
-
-        //  {{1,2}, {3}, {3}, {}}; // 0 -> (1,2); 1 -> (3); 2 -> (3); 3 -> (None)
 
         node0.add(1);
         node0.add(2);
