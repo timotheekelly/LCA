@@ -1,13 +1,11 @@
 package JavaLca;
-
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 
 class Graph {
 
     private List<Integer> path;
-	private int[] parents1, parents2;
+	private static List<Integer> longestPath;
 
     public void FindAllPaths (List<List<Integer>> graph, int src, int dst) {
 
@@ -26,8 +24,12 @@ class Graph {
 
         if (src == dst) {
             System.out.print("\nPath : " );
-            for (Integer node : path)
+            for (Integer node : path) {
                  System.out.print(node + " ");
+			}
+			if (path.size() > longestPath.size()) {
+				longestPath = path;
+			}
         } else {
             for (Integer adjnode : graph.get(src)) {
                 path.add(adjnode);
@@ -40,6 +42,8 @@ class Graph {
     public static void main (String[] args) {
 
         Graph obj = new Graph();
+		longestPath = new ArrayList<Integer>();
+        longestPath.clear();
         List<Integer> node0, node1, node2, node3, node4, node5, node6, node7, node8;
 
         node0 = new ArrayList<Integer>();
