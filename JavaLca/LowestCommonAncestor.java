@@ -15,7 +15,7 @@ class Graph {
         path = new ArrayList<Integer>();
         path.clear();
 
-        System.out.print("Source : " + src + " Destination : " + dst);
+        System.out.print("\nSource : " + src + " Destination : " + dst);
 
         path.add(src);
 
@@ -28,6 +28,7 @@ class Graph {
             System.out.print("\nPath : " );
             for (Integer node : path)
                  System.out.print(node + " ");
+				 System.out.print("\nDepth " + path.size());
         } else {
             for (Integer adjnode : graph.get(src)) {
                 path.add(adjnode);
