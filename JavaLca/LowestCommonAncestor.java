@@ -1,93 +1,73 @@
 package JavaLca;
 
-// Java program to print DFS
-//mtraversal from a given given
-// graph
-import java.io.*;
-import java.util.*;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
-// This class represents a
-// directed graph using adjacency
-// list representation
-class LowestCommonAncestor {
-	private int V; // No. of vertices
+class Graph {
 
-	// Array of lists for
-	// Adjacency List Representation
-	private LinkedList<Integer> adj[];
+    private List<Integer> path;
 
-	// Constructor
-	@SuppressWarnings("unchecked") LowestCommonAncestor(int v)
-	{
-		V = v;
-		adj = new LinkedList[v];
-		for (int i = 0; i < v; ++i)
-			adj[i] = new LinkedList();
-	}
+    public void FindAllPaths (List<List<Integer>> graph, int src, int dst) {
 
-	// Function to add an edge into the graph
-	void addEdge(int v, int w)
-	{
-		adj[v].add(w); // Add w to v's list.
-	}
+        // Clear previously stored paths
+        path = new ArrayList<Integer>();
+        path.clear();
 
-	// A function used by DFS
-	void DFSUtil(int v, boolean visited[])
-	{
-		// Mark the current node as visited and print it
-		visited[v] = true;
-		System.out.print(v + " ");
+        System.out.print("Source : " + src + " Destination : " + dst);
 
-		// Recur for all the vertices adjacent to this
-		// vertex
-		Iterator<Integer> i = adj[v].listIterator();
-		while (i.hasNext())
-		{
-			int n = i.next();
-			if (!visited[n])
-				DFSUtil(n, visited);
-		}
-	}
+        path.add(src);
 
-	// The function to do DFS traversal.
-	// It uses recursive
-	// DFSUtil()
-	void DFS(int v)
-	{
-		// Mark all the vertices as
-		// not visited(set as
-		// false by default in java)
-		boolean visited[] = new boolean[V];
+        DFS (graph, src, dst, path);
+    }
 
-		// Call the recursive helper
-		// function to print DFS
-		// traversal
-		DFSUtil(v, visited);
-	}
+    public void DFS (List<List<Integer>> graph, int src , int dst, List<Integer> path) {
 
-	// Driver Code
-	public static void main(String args[])
-	{
-		LowestCommonAncestor g = new LowestCommonAncestor(8);
+        if (src == dst) {
+            System.out.print("\nPath : " );
+            for (Integer node : path)
+                 System.out.print(node + " ");
+        } else {
+            for (Integer adjnode : graph.get(src)) {
+                path.add(adjnode);
+                DFS (graph, adjnode, dst, path);
+                path.remove(path.size()-1);
+            }
+        }
+    }
 
-		g.addEdge(0, 1);
-		g.addEdge(0, 2);
-		g.addEdge(1, 4);
-		g.addEdge(1, 6);
-		g.addEdge(2, 3);
-		g.addEdge(2, 4);
-		g.addEdge(2, 6);
-		g.addEdge(3, 6);
-		g.addEdge(6, 5);
-		g.addEdge(6, 7);
-		g.addEdge(7, 8);
+    public static void main (String[] args) {
 
+        Graph obj = new Graph();
+        List<Integer> node0, node1, node2, node3, node4;
 
-		System.out.println(
-			"Following is Depth First Traversal "
-			+ "(starting from vertex 2)");
+        node0 = new ArrayList<Integer>();
+        node1 = new ArrayList<Integer>();
+        node2 = new ArrayList<Integer>();
+        node3 = new ArrayList<Integer>();
+        node4 = new ArrayList<Integer>();
 
-		g.DFS(8);
-	}
+        List<List<Integer>> graph1 = new ArrayList<List<Integer>>();
+        // Graph 1
+
+        /*  2 ---> 3
+            ^      ^   
+            |      |        
+            0 ---> 1 */
+
+        //  {{1,2}, {3}, {3}, {}}; // 0 -> (1,2); 1 -> (3); 2 -> (3); 3 -> (None)
+
+        node0.add(1);
+        node0.add(2);
+        node1.add(3);
+        node2.add(3);
+
+        graph1.add(node0);
+        graph1.add(node1);
+        graph1.add(node2);
+        graph1.add(node3);
+
+        System.out.println("\n\nAll paths in graph G1");
+        obj.FindAllPaths (graph1, 0, 3);
+    }
 }
-// This code is contributed by Aakash Hasija

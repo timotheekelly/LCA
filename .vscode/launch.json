@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Graph",
+            "request": "launch",
+            "mainClass": "JavaLca.Graph",
+            "projectName": "Software Engineering_836c17cf"
+        },
+        {
+            "type": "java",
             "name": "Launch LowestCommonAncestor",
             "request": "launch",
             "mainClass": "JavaLca.LowestCommonAncestor",
