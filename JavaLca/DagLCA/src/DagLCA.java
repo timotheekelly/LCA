@@ -1,15 +1,14 @@
-package JavaLca;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-//mainclass
-public class LowestCommonAncestor{
+// graph implementation from https://algs4.cs.princeton.edu/42digraph/Digraph.java.html
+
+public class DagLCA{
 	//similar graph implementation to https://algs4.cs.princeton.edu/42digraph/Digraph.java.html
 
-	private final int V;           // number of vertices in this digraph
-	private int E;                 // number of edges in this digraph
+	private final int V;           // number of vertices in graph
+	private int E;                 // number of edges in graph
 	private ArrayList<Integer>[] adj;    // adj[v] = adjacency list for vertex v
 	private int[] indegree;        // indegree[v] = indegree of vertex v
 	public boolean isDAG;
@@ -24,7 +23,7 @@ public class LowestCommonAncestor{
 	public int preCounter;
 	public int postCounter;
 
-	public LowestCommonAncestor(int V) {
+	public DagLCA(int V) {
 		if (V < 0) throw new IllegalArgumentException("Number of vertices in a Digraph must be nonnegative");
 		this.V = V;
 		this.E = 0;
@@ -32,8 +31,6 @@ public class LowestCommonAncestor{
 		adj = (ArrayList<Integer>[]) new ArrayList[V];
 		for (int v = 0; v < V; v++) {
 			adj[v] = new ArrayList<Integer>();
-
-
 		}
 		isDAG = true;
 		marked = new boolean[V];
@@ -48,20 +45,19 @@ public class LowestCommonAncestor{
 	}
 
 
-
 	/**
-	 * Returns the number of vertices in this digraph.
+	 * Returns the number of vertices in this graph.
 	 *
-	 * @return the number of vertices in this digraph
+	 * @return the number of vertices in this graph
 	 */
 	public int V() {
 		return V;
 	}
 
 	/**
-	 * Returns the number of edges in this digraph.
+	 * Returns the number of edges in graph.
 	 *
-	 * @return the number of edges in this digraph
+	 * @return the number of edges in graph
 	 */
 	public int E() {
 		return E;
@@ -70,11 +66,10 @@ public class LowestCommonAncestor{
 	private void validateVertex(int v) {
 		if (v < 0 || v >= V)
 			throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));
-
 	}
 
 	/**
-	 * Adds the directed edge v-w to this digraph.
+	 * Adds the directed edge v-w to this graph.
 	 *
 	 * @param  v the tail vertex
 	 * @param  w the head vertex
@@ -89,21 +84,23 @@ public class LowestCommonAncestor{
 	}
 
 	/**
-	 * Returns the vertices adjacent from vertex {@code v} in this digraph.
+	 * Returns the vertices adjacent from vertex {@code v} in this graph.
 	 *
 	 * @param  v the vertex
-	 * @return the vertices adjacent from vertex {@code v} in this digraph, as an iterable
+	 * @return the vertices adjacent from vertex {@code v} in this graph, as an iterable
 	 * @throws IllegalArgumentException unless {@code 0 <= v < V}
 	 */
 	public Iterable<Integer> adj(int v) {
 		validateVertex(v);
 		return adj[v];
 	}
+	
 	public boolean acyclic()
 	{
 		return isDAG;	
 	}
-	//Sedgewick
+	
+	
 	public void isAcyclic()
 	{
 		for(int i=0; i<V()&&isDAG;i++)
@@ -113,6 +110,7 @@ public class LowestCommonAncestor{
 			acyclic(i);
 		}
 	}
+	
 	private void acyclic(int v)
 	{
 		stack[v] =true; 
@@ -128,6 +126,7 @@ public class LowestCommonAncestor{
 		}
 		stack[v] = false;
 	}
+	
 	public int LCA(int v, int w)
 	{
 		boolean haveLCA =false;
@@ -136,15 +135,15 @@ public class LowestCommonAncestor{
 		if(!isDAG){
 			return -1;
 		}
-		validateVertex(v);//exception thrown ifinvalid
-		validateVertex(w);//check if they exist
+		validateVertex(v);	//exception thrown ifinvalid
+		validateVertex(w);	//check if they exist
 		if(E==0)// no edges
 		{
 			return -1;
 		}
 		//is valid to search now reverse
 
-		LowestCommonAncestor  reversed = this.reverse();
+		DagLCA  reversed = this.reverse();
 		ArrayList<Integer> commonAncestors = new ArrayList<Integer>();
 
 		//Testing DFS first to see if it works       
@@ -209,8 +208,8 @@ public class LowestCommonAncestor{
 	}
 	//reverse the DAG so we can navigate to parent nodes. 
 
-	public LowestCommonAncestor reverse() {
-		LowestCommonAncestor childToParent = new LowestCommonAncestor(V);
+	public DagLCA reverse() {
+		DagLCA childToParent = new DagLCA(V);
 		for (int v = 0; v < V; v++) 
 		{
 
