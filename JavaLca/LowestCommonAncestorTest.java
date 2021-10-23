@@ -16,18 +16,8 @@ public class LowestCommonAncestorTest {
 		
 		// Testing before edges are added
 		assertEquals(-1,test.LCA(4, 7));
-		
-		// Graph directon starting at the top and directed down ( 3 -> 6 is exception)
-		//
-		//	  	0
-		//	   / \
-		//	  2	  1
-		//   /| X |
-		//  3-6   4
-		//    |\
-		//    7 5
-		//	  |
-		//	  8
+
+		// Greated DAG
 		 
 		test.addEdge(0, 1);
 		test.addEdge(0, 2);
