@@ -41,8 +41,7 @@ class Graph {
         }
     }
 
-    public static void main (String[] args) {
-
+    public static void run() {
         Graph obj = new Graph();
 		allAncestors1 = new ArrayList<Integer>();
         allAncestors1.clear();
@@ -97,5 +96,15 @@ class Graph {
 		for(int node : allAncestors2) {
 			System.out.print(node + " ");
 		}
+
+        System.out.println("\nCommon ancestors");
+
+        for(int nodes : allAncestors1) {
+            if (allAncestors2.contains(nodes)) {
+                System.out.print(nodes + " ");
+            }
+		}
+    
     }
+
 }
