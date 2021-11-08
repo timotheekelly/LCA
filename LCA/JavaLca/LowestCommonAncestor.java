@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 
 public class LowestCommonAncestor{
-	//algorithm from https://algs4.cs.princeton.edu/42digraph/graph.java.html
+	//algorithm from https://algs4.cs.princeton.edu/42digraph/
 
 	private final int V;           // number of vertices in this graph
 	private int E;                 // number of edges in this graph
